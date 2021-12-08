@@ -154,12 +154,3 @@ import pickle
 
 pickle.dump(knn_tuned, open("model.pkl", "wb"))
 
-print(data.head(10))
-
-def uniqueValue(variable):
-    return data[variable].unique()
-
-
-for i in data.columns:
-    print(f"{i}: ", uniqueValue(i))
-

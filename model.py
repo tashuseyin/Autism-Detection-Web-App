@@ -15,7 +15,7 @@ print(data.describe().T)
 data.info()
 
 # Gereksiz Öznitelikleri silme
-data.drop(["Case_No", "Who completed the test"], axis=1, inplace=True)
+data.drop(["Case_No", "Who completed the test" ,"Qchat-10-Score"], axis=1, inplace=True)
 print(data.columns)
 
 # data öznitelik yeniden isimlendirme
@@ -38,9 +38,9 @@ def bar_plot(variable, color):
     print("{}:\n{}".format(variable, varValue))
 
 
-category = ["Qchat-10-Score", "Sex", "Ethnicity", "Jaundice", "Family_mem_with_ASD", "target"]
-color_list = ["red", "green", "blue", "orange", "yellow", "purple"]
-for i in range(6):
+category = ["Sex", "Ethnicity", "Jaundice", "Family_mem_with_ASD", "target"]
+color_list = ["green", "blue", "orange", "yellow", "purple"]
+for i in range(5):
     bar_plot(category[i], color_list[i])
 
 # Numerical Variable
@@ -91,7 +91,7 @@ plt.show()
 from sklearn.preprocessing import LabelEncoder
 
 labelEncoder = LabelEncoder()
-category = ["Qchat-10-Score", "Sex", "Ethnicity", "Jaundice", "Family_mem_with_ASD", "target"]
+category = ["Sex", "Ethnicity", "Jaundice", "Family_mem_with_ASD", "target"]
 for i in category:
     data[i] = labelEncoder.fit_transform(data[i])
 
@@ -119,14 +119,6 @@ print("Train Confusion matrix:\n {}".format(confusion_matrix(y_train, y_pred_tra
 
 # Hyperparametre tuning
 from sklearn.model_selection import GridSearchCV
-
-params = {'n_neighbors': np.arange(0, 30)}
-knn = KNeighborsClassifier()
-knn_cv_model = GridSearchCV(knn, param_grid=params, cv=10)
-knn_cv_model.fit(X_train, y_train)
-
-print("En iyi parametre:", knn_cv_model.best_params_["n_neighbors"])
-
 # hiperparametre tuning manuel
 acc_score = []
 for n in range(1, 30):
@@ -140,7 +132,7 @@ plt.ylabel('Acuracy Scores')
 plt.show()
 
 # Tuned model
-knn_tuned = KNeighborsClassifier(n_neighbors=25)
+knn_tuned = KNeighborsClassifier(n_neighbors=11)
 knn_tuned.fit(X_train, y_train)
 
 y_pred_test = knn_tuned.predict(X_test)
@@ -152,5 +144,39 @@ print("Train Confusion matrix:\n {}".format(confusion_matrix(y_train, y_pred_tra
 
 import pickle
 
-pickle.dump(knn_tuned, open("model.pkl", "wb"))
+pickle.dump(knn_tuned, open("knn_model.pkl", "wb"))
 
+# Random Forests
+from sklearn.ensemble import RandomForestClassifier
+rf_model = RandomForestClassifier().fit(X_train, y_train)
+print(rf_model)
+
+# ilkel test hatamız
+y_pred = rf_model.predict(X_test)
+print("Random Forest Accuracy:", accuracy_score(y_test, y_pred))
+
+# model tuning
+rf_params = {"max_depth": [2, 3, 5, 8, 10],
+             "max_features": [2, 5, 8],
+             "n_estimators": [10, 500, 1000],
+             "min_samples_split": [2, 5, 10]}
+
+rf_cv_model = GridSearchCV(rf_model,
+                           rf_params,
+                           cv=10, n_jobs=-1, verbose=2)
+
+rf_cv_model.fit(X_train, y_train)
+
+print("En iyi parametreler: {}".format(str(rf_cv_model.best_params_)))
+
+# Tuned edilmiş final model
+model_tuned = RandomForestClassifier(max_depth=2, max_features=2, min_samples_split=10, n_estimators=500)
+model_tuned.fit(X_train, y_train)
+
+y_pred_final_test = model_tuned.predict(X_test)
+print("Test Score: {}".format(accuracy_score(y_test, y_pred_final_test)))
+
+y_pred_final_train = model_tuned.predict(X_train)
+print("Train Score: {}".format(accuracy_score(y_train, y_pred_final_train)))
+
+pickle.dump(model_tuned, open("random_forest_model.pkl", "wb"))

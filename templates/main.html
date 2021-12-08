@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Disease Predictor</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Website Title -->
+
+  <div class="container">
+    <h2 class='container-heading'><span class="heading_font">Autism Predictor</span></h2>
+  </div>
+
+  <!-- Text Area -->
+  <div class="ml-container">
+    <form action="{{ url_for('predict')}}" method="POST"> 
+
+      
+        <label for="age">Age</label>
+        <input type="text" id="age" name="age" placeholder="Your age.."><br>
+
+        <label for="sex">Sex</label>
+        <select id="sex" name="sex">
+          <option selected>----select option----</option>
+          <option value="1">Male</option>
+          <option value="0">Female</option>
+        </select><br>
+
+        <label for="A1">A1</label>
+        <select id="A1" name="A1">
+          <option selected>----select option----</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select><br>
+        <label for="A2">A2</label>
+        <select id="A2" name="A2">
+          <option selected>----select option----</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select><br>
+        <label for="A3">A3</label>
+        <select id="A3" name="A3">
+          <option selected>----select option----</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select><br>
+        <label for="A4">A4</label>
+        <select id="A4" name="A4">
+          <option selected>----select option----</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select><br>
+        <label for="A5">A5</label>
+        <select id="A5" name="A5">
+          <option selected>----select option----</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select><br>
+        <label for="A6">A6</label>
+        <select id="A6" name="A6">
+          <option selected>----select option----</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select><br>
+        <label for="A7">A7</label>
+        <select id="A7" name="A7">
+          <option selected>----select option----</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select><br>
+        <label for="A8">A8</label>
+        <select id="A8" name="A8">
+          <option selected>----select option----</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select><br>
+        <label for="A9">A9</label>
+        <select id="A9" name="A9">
+          <option selected>----select option----</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select><br>
+        <label for="A10">A10</label>
+        <select id="A10" name="A10">
+          <option selected>----select option----</option>
+          <option value="1">1</option>
+          <option value="0">0</option>
+        </select><br>
+
+        <label for="Qchat-10-Score">Qchat 10 Score</label>
+        <input type="text" id="Qchat-10-Score" name="Qchat-10-Score" placeholder="A number in range [0-10]"><br>
+
+        <label for="Ethnicity">Ethnicity</label>
+        <select id="Ethnicity" name="Ethnicity">
+          <option selected>----select option----</option>
+          <option value="0">Hispanic</option>
+          <option value="1">Latino</option>
+          <option value="2">Native Indian</option>
+          <option value="3">Others</option>
+          <option value="4">Pacifica</option>
+          <option value="5">White European</option>
+          <option value="6">asian</option>
+          <option value="7">black</option>
+          <option value="8">middle eastern</option>
+          <option value="9">mixed</option>
+          <option value="10">south asian</option>
+        </select><br>
+
+        <label for="Jaundice">Jaundice</label>
+        <select id="Jaundice" name="Jaundice">
+          <option selected>----select option----</option>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select><br>
+
+        <label for="Family_mem_with_ASD">Family_mem_with_ASD</label>
+        <select id="Family_mem_with_ASD" name="Family_mem_with_ASD">
+          <option selected>----select option----</option>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select><br>
+
+      <input type="submit" class="my-cta-button" value="Predict">
+    </form>
+  </div>
+</body>
+
+</html>

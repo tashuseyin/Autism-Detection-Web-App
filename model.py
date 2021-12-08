@@ -15,7 +15,7 @@ print(data.describe().T)
 data.info()
 
 # Gereksiz Öznitelikleri silme
-data.drop(["Case_No", "Who completed the test" ,"Qchat-10-Score"], axis=1, inplace=True)
+data.drop(["Case_No", "Who completed the test", "Qchat-10-Score"], axis=1, inplace=True)
 print(data.columns)
 
 # data öznitelik yeniden isimlendirme
@@ -119,6 +119,7 @@ print("Train Confusion matrix:\n {}".format(confusion_matrix(y_train, y_pred_tra
 
 # Hyperparametre tuning
 from sklearn.model_selection import GridSearchCV
+
 # hiperparametre tuning manuel
 acc_score = []
 for n in range(1, 30):
@@ -148,7 +149,9 @@ pickle.dump(knn_tuned, open("knn_model.pkl", "wb"))
 
 # Random Forests
 from sklearn.ensemble import RandomForestClassifier
-rf_model = RandomForestClassifier().fit(X_train, y_train)
+
+rf_model = RandomForestClassifier()
+rf_model.fit(X_train, y_train)
 print(rf_model)
 
 # ilkel test hatamız

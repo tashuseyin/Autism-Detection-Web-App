@@ -34,7 +34,6 @@ def predict():
         Family_mem_with_ASD = request.form.get('Family_mem_with_ASD')
         data = np.array([[age, sex, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, Ethnicity, Jaundice, Family_mem_with_ASD]])
         my_prediction = model.predict(data)
-
         return render_template('result.html', prediction=my_prediction)
 
 
